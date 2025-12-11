@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سلة المشتريات وتأكيد الطلب</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cart_style.css">
+<link rel="shortcut icon" href="imgs/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+
+<header>سلة المشتريات</header>
+
+<div class="container" id="cart-container">
+  <h2>منتجات السلة</h2>
+  <div id="cart-list"></div>
+
+  <div class="total-box">
+    المجموع: <span id="total">0</span> ريال
+  </div>
+
+  <button class="checkout-btn" onclick="checkout()">إتمام الطلب</button>
+</div>
+
+<div class="container" id="order-container" style="display:none;">
+  <h2>تم تأكيد طلبك</h2>
+  <div id="order-list"></div>
+
+  <div class="total-box">
+    المجموع: <span id="order-total">0</span> ريال
+  </div>
+
+  <div class="thankyou">شكرًا لتسوقك معنا! سيتم تجهيز طلبك قريبًا.</div>
+
+  <a href="index.html" class="home-btn">العودة للصفحة الرئيسية</a>
+</div>
+
+<script>
+const CART_KEY = "mh_cart_v1";
+
+// تحميل السلة
+function loadCart(){ return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+// حفظ السلة
+function saveCart(arr){ localStorage.setItem(CART_KEY, JSON.stringify(arr)); }
+
+// عرض السلة
+function renderCart(){
+  const cart = loadCart();
+  const cont = document.getElementById('cart-list');
+  cont.innerHTML = '';
+  let total = 0;
+
+  cart.forEach(item=>{
+    total += item.price * item.qty;
+
+    const div = document.createElement('div');
+    div.className = "cart-item";
+
+    div.innerHTML = `
+      <img src="${item.image}" alt="${item.title}">
+      <div class="item-info">
+        <div class="item-title">${item.title}</div>
+        <div class="item-price">${item.price} ريال</div>
+
+        <div class="qty-box">
+          <button onclick="changeQty('${item.id}',-1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty('${item.id}',1)">+</button>
+        </div>
+
+        <button class="qty-box remove-btn" onclick="removeItem('${item.id}')">حذف المنتج</button>
+      </div>
+    `;
+    cont.appendChild(div);
+  });
+
+  document.getElementById('total').textContent = total;
+}
+
+// تعديل الكمية
+function changeQty(id,num){
+  const cart = loadCart();
+  const item = cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty += num;
+  if(item.qty<1) item.qty=1;
+  saveCart(cart);
+  renderCart();
+}
+
+// حذف المنتج
+function removeItem(id){
+  let cart = loadCart();
+  cart = cart.filter(x=>x.id!==id);
+  saveCart(cart);
+  renderCart();
+}
+
+// إتمام الطلب
+function checkout(){
+  const cart = loadCart();
+  if(cart.length === 0){ alert("السلة فارغة!"); return; }
+
+  // حفظ الطلب الأخير
+  localStorage.setItem('lastOrder', JSON.stringify(cart));
+  // مسح السلة
+  localStorage.removeItem(CART_KEY);
+
+  // إظهار صفحة تأكيد الطلب
+  document.getElementById('cart-container').style.display = 'none';
+  document.getElementById('order-container').style.display = 'block';
+
+  renderOrder();
+}
+
+// عرض الطلب
+function renderOrder(){
+  const lastOrder = JSON.parse(localStorage.getItem('lastOrder') || "[]");
+  const cont = document.getElementById('order-list');
+  cont.innerHTML = '';
+  let total = 0;
+
+  lastOrder.forEach(item=>{
+    total += item.price * item.qty;
+
+    const div = document.createElement('div');
+    div.className = 'order-item';
+    div.innerHTML = `
+      <img src="${item.image}" alt="${item.title}">
+      <div class="item-info">
+        <div class="item-title">${item.title}</div>
+        <div class="item-price">السعر: ${item.price} ريال</div>
+        <div class="item-qty">الكمية: ${item.qty}</div>
+      </div>
+    `;
+    cont.appendChild(div);
+  });
+
+  document.getElementById('order-total').textContent = total;
+}
+
+// تشغيل عند التحميل
+renderCart();
+</script>
+
+</body>
+</html>

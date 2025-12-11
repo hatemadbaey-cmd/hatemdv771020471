@@ -1,0 +1,157 @@
+ :root {
+        --primary: #4a6cf7;
+        --secondary: #6a89ff;
+        --bg: #f4f6fb;
+        --card: #ffffff;
+        --text: #333;
+        --muted: #777;
+    }
+
+    body {
+        font-family: "Cairo", sans-serif;
+        background: var(--bg);
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 34px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    p.lead {
+        text-align: center;
+        font-size: 18px;
+        color: var(--muted);
+        margin-top: -10px;
+        line-height: 1.9;
+    }
+
+    h2 {
+        color: var(--primary);
+        text-align: center;
+        font-size: 26px;
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
+
+    /* ===== قائمة المميزات ===== */
+    ul.features {
+        max-width: 650px;
+        margin: auto;
+        padding: 0;
+        list-style: none;
+    }
+
+    ul.features li {
+        background: var(--card);
+        margin: 10px 0;
+        padding: 14px 20px;
+        border-radius: 12px;
+        font-size: 17px;
+        color: var(--text);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    ul.features li::before {
+        content: "✔";
+        color: var(--primary);
+        font-weight: bold;
+    }
+
+    /* ===== بطاقات الطلاب ===== */
+    .students-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+    .student-card {
+        background: var(--card);
+        border-radius: 18px;
+        padding: 25px 15px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        transition: 0.3s ease;
+    }
+
+    .student-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .student-card img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid var(--primary);
+        margin-bottom: 10px;
+    }
+
+    .student-card h3 {
+        margin: 10px 0 5px;
+        font-size: 20px;
+        color: var(--text);
+        font-weight: 700;
+    }
+
+    .role {
+        color: var(--muted);
+        font-size: 15px;
+        letter-spacing: 0.3px;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+        margin-top: 50px;
+        text-align: center;
+        padding: 20px;
+        color: var(--muted);
+    }
+
+    .work{
+        background-color:rgb(1, 52, 172) ;
+        border-radius: 20px;
+       
+
+        
+    }
+    .work:hover{
+        background-color: #ffffff;
+        
+        
+    }
+    h1:hover{color: rgb(1, 52, 172);
+        
+
+    }
+    h1{
+
+        color: #ffffff;
+        text-align: center;
+    }
+    .student-card:hover{
+        background-color: #1440f00b;
+        
+    }

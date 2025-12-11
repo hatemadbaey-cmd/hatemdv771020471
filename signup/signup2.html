@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>فتح حساب - خطوة 2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="signup.css">
+  <link rel="shortcut icon" href="../imgs/favicon.png" type="image/x-icon">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <div class="mark">M</div>
+        <div class="brand">المتجر الحديث</div>
+      </div>
+
+      <nav class="nav">
+        <div class="alinks"><a href="../index.html">الرئيسية</a></div>
+        <div class="alinks"><a href="../login.html">تسجيل الدخول</a></div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="login-container">
+      <h2 class="title">إنشاء بيانات الحساب</h2>
+
+      <p class="steps">الخطوة 2 من 3</p>
+
+      <form id="step2-form" novalidate>
+        <label class="field-label">اسم المستخدم</label>
+        <input
+          class="input"
+          type="text"
+          id="username"
+          name="username"
+          placeholder="اختر اسم مستخدم"
+          required
+        >
+
+        <label class="field-label">كلمة المرور</label>
+        <input
+          class="input"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="كلمة المرور"
+          minlength="6"
+          required
+        >
+
+        <label class="field-label">تأكيد كلمة المرور</label>
+        <input
+          class="input"
+          type="password"
+          id="password2"
+          name="password2"
+          placeholder="أعد كتابة كلمة المرور"
+          minlength="6"
+          required
+        >
+
+        <div class="form-actions">
+          <button class="btn secondary" type="button" onclick="history.back()">العودة</button>
+          <button class="btn" type="submit">التالي</button>
+        </div>
+      </form>
+
+      <p class="note">اختر كلمة مرور قوية لحماية حسابك.</p>
+    </div>
+  </main>
+
+ <script>
+  (function() {
+    const form = document.getElementById('step2-form');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      // حفظ البيانات مهما كانت
+      const data = {
+        username: username,
+        password: password
+      };
+
+      // ملاحظة: فقط للتجربة — لا تخزن كلمات المرور في localStorage في مشاريع حقيقية
+      localStorage.setItem('signup_step2', JSON.stringify(data));
+
+      // الانتقال للصفحة التالية بدون أي تحقق
+      window.location.href = 'signup3.html';
+    });
+  })();
+</script>
+
+
+</body>
+</html>

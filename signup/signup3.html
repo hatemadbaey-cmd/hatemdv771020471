@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>فتح حساب - تأكيد</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="signup.css">
+  <link rel="shortcut icon" href="../imgs/favicon.png" type="image/x-icon">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <div class="mark">M</div>
+        <div class="brand">المتجر الحديث</div>
+      </div>
+
+      <nav class="nav">
+        <div class="alinks"><a href="../index.html">الرئيسية</a></div>
+        <div class="alinks"><a href="../login.html">تسجيل الدخول</a></div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="login-container">
+      <h2 class="title">تأكيد الحساب</h2>
+
+      <p class="steps">الخطوة 3 من 3</p>
+
+      <div id="summary" class="summary">
+        <!-- سيتم تعبئته بواسطة الجافاسكربت -->
+      </div>
+
+      <div class="form-actions">
+        <button class="btn secondary" id="edit-btn" type="button">تعديل</button>
+        <button class="btn" id="create-btn" type="button">إنشاء الحساب</button>
+      </div>
+
+      <p class="note">بعد الإنشاء سيتم تحويلك إلى صفحة تسجيل الدخول.</p>
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      const s1 = JSON.parse(localStorage.getItem('signup_step1') || 'null');
+      const s2 = JSON.parse(localStorage.getItem('signup_step2') || 'null');
+
+      if (!s1 || !s2) {
+        alert('لم يتم إكمال الخطوات السابقة.');
+        window.location.href = 'signup1.html';
+        return;
+      }
+
+      const summaryEl = document.getElementById('summary');
+
+      // عرض الملخّص (لا نعرض كلمة المرور بوضوح)
+      summaryEl.innerHTML =
+        '<div class="row"><strong>الاسم:</strong><span>' + escapeHtml(s1.fullname) + '</span></div>' +
+        '<div class="row"><strong>الهاتف:</strong><span>' + escapeHtml(s1.phone) + '</span></div>' +
+        '<div class="row"><strong>اسم المستخدم:</strong><span>' + escapeHtml(s2.username) + '</span></div>' +
+        '<div class="row"><strong>كلمة المرور:</strong><span>' + '•••••••' + '</span></div>';
+
+      document.getElementById('edit-btn').addEventListener('click', function() {
+        // العودة لتعديل: نعود للخطوة 1
+        window.location.href = 'signup1.html';
+      });
+
+      document.getElementById('create-btn').addEventListener('click', function() {
+        // هنا عادة تـرسل بيانات للخادم. للتجربة نحفظ مستخدم مؤقتًا في localStorage
+        const users = JSON.parse(localStorage.getItem('users_demo') || '[]');
+
+        const user = {
+          fullname: s1.fullname,
+          phone: s1.phone,
+          username: s2.username,
+          password: s2.password,
+          createdAt: new Date().toISOString()
+        };
+
+        users.push(user);
+        localStorage.setItem('users_demo', JSON.stringify(users));
+
+        // حذف بيانات الخطوات بعد الإنشاء
+        localStorage.removeItem('signup_step1');
+        localStorage.removeItem('signup_step2');
+
+        alert('تم إنشاء الحساب بنجاح!');
+        window.location.href = '../index.html';
+      });
+
+      // دالة بسيطة لتأمين عرض النصوص
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+    })();
+  </script>
+
+</body>
+</html>
