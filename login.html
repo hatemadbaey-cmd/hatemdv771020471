@@ -2,26 +2,28 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تسجيل الدخول</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="login&contact/stayle_login&con.css">
+  <link rel="stylesheet" href="login&contact/stayle_login&con.css"> 
   <link rel="shortcut icon" href="imgs/favicon.png" type="image/x-icon">
+<style>
+    
+
+  </style>
 </head>
 <body>
-
-  <header>
+<header>
   
     <nav>
      <div class="alinks"> <a href="index.html" class="active">الرئيسية</a></div>
       
-      <div class="alinks"><a href="contact.html">اتصل بنا</a></div>
+      <div class="alinks"><a href="contact.html">تواصل معانا</a></div>
     </nav>
   </header>
-
-  <main>
-    <div class="login-container">
-      <h2>تسجيل الدخول</h2>
-      <form id="login-form">
+  <div class="login-container"> 
+    <h2>تسجيل الدخول</h2>
+    <form id="login-form">
         <input type="text" id="username" placeholder="اسم المستخدم" required>
         <input type="password" id="password" placeholder="كلمة المرور" required>
         <button type="submit">دخول</button>
@@ -31,9 +33,9 @@
       <div class="but-sin"><a href="signup/signup1.html"><span><b>فتح حساب</b></a></span></div>
       
     </div>
-  </main>
-
-  <script>
+    
+  </div>
+<script>
     document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -49,6 +51,5 @@
       }
     });
   </script>
-
 </body>
 </html>
